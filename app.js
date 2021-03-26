@@ -1,14 +1,47 @@
-import * as ELEMENTS from 'elements.js';
-import {Http} from 'http.js';
-import {WeatherData, WEATHER_PROXY_HANDLER} from 'weather-data.js'
+const SEARCH_BUTTON = document.querySelector('button');
+const SEARCHED_CITY = document.querySelector('#city');
 
-const APP_ID = process.env.API_ID;
+const LOADING_TEXT = document.querySelector('#load');
+const WEATHER_BOX = document.querySelector('#weather');
+
+const WEATHER_CITY = document.querySelector('#weatherCity');
+const WEATHER_DESCRIPTION = document.querySelector('#weatherDescription');
+const WEATHER_TEMPERATURE = document.querySelector('#weatherTemperature');
+
+class Http{
+    static fetchData(url){
+        return new Promise((res, rej) => {
+            const HTTP = new XMLHttpRequest();
+            HTTP.open('GET', url);
+            HTTP.onreadystatechange = function(){
+                if( HTTP.readyState == XMLHttpRequest.DONE && HTTP.status == 200){
+                    const RESPONSE_DATA = JSON.parse(HTTP.responseText);
+                    res(RESPONSE_DATA);
+                }else if(HTTP.readyState == XMLHttpRequest.DONE){
+                    rej('Something went wrong!')
+                }
+            }
+            HTTP.send();
+        })
+    }
+}
+
+
+class WeatherData{
+    constructor(cityName, description, temperature){
+        this.cityName = cityName;
+        this.description = description;
+        this.temperature = temperature;
+    }
+}
+
+const APP_ID = process.env.APP_ID;
 console.log(APP_ID);
 
-ELEMENTS.SEARCH_BUTTON.addEventListener('click', searchWeather);
+SEARCH_BUTTON.addEventListener('click', searchWeather);
 
 function searchWeather(){
-    const CITY_NAME = ELEMENTS.SEARCHED_CITY.value.trim();
+    const CITY_NAME = SEARCHED_CITY.value.trim();
     if(CITY_NAME.length == 0){
         alert('Please enter a city name!');
     }
@@ -23,9 +56,9 @@ function searchWeather(){
 }
 
 function updateWeather(weatherData){
-    ELEMENTS.WEATHER_CITY.textContent = weatherData.cityName;
-    ELEMENTS.WEATHER_DESCRIPTION.textContent = weatherData.description;
-    ELEMENTS.WEATHER_TEMPERATURE.textContent = weatherData.temperature;
+    WEATHER_CITY.textContent = weatherData.cityName;
+    WEATHER_DESCRIPTION.textContent = weatherData.description;
+    WEATHER_TEMPERATURE.textContent = weatherData.temperature;
 
-    ELEMENTS.WEATHER_BOX.style.display = 'block';
+    WEATHER_BOX.style.display = 'block';
 }
