@@ -36,7 +36,6 @@ class WeatherData{
 }
 
 const APP_ID = 'c87d4361ac7902d363a4fb4527a5295c';
-console.log(APP_ID);
 
 SEARCH_BUTTON.addEventListener('click', searchWeather);
 
@@ -45,7 +44,7 @@ function searchWeather(){
     if(CITY_NAME.length == 0){
         alert('Please enter a city name!');
     }
-    const URL ='http://api.openweathermap.org/data/2.5/weather?q=' + CITY_NAME + '&units=metric&appid=' + APP_ID;
+    const URL ='https://cors-anywhere.herokuapp.com/http://api.openweathermap.org/data/2.5/weather?q=' + CITY_NAME + '&units=metric&appid=' + APP_ID;
 
     Http.fetchData(URL)
         .then( resData => {
