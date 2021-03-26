@@ -38,6 +38,11 @@ class WeatherData{
 const APP_ID = 'c87d4361ac7902d363a4fb4527a5295c';
 
 SEARCH_BUTTON.addEventListener('click', searchWeather);
+SEARCHED_CITY.addEventListener('keypress', function (e) {
+    if (e.key === 'Enter') {
+      searchWeather();
+    }
+});
 
 function searchWeather(){
     const CITY_NAME = SEARCHED_CITY.value.trim();
