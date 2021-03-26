@@ -35,7 +35,7 @@ class WeatherData{
     }
 }
 
-const APP_ID = process.env['API_KEY'];
+const APP_ID = 'c87d4361ac7902d363a4fb4527a5295c';
 
 SEARCH_BUTTON.addEventListener('click', searchWeather);
 
