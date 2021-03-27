@@ -62,7 +62,7 @@ function searchWeather(){
 function updateWeather(weatherData){
     WEATHER_CITY.textContent = weatherData.cityName;
     WEATHER_DESCRIPTION.textContent = weatherData.description;
-    WEATHER_TEMPERATURE.textContent = weatherData.temperature + ' C';
+    WEATHER_TEMPERATURE.textContent = 'Temp: ' + weatherData.temperature + ' C';
 
     WEATHER_BOX.style.display = 'block';
 }
